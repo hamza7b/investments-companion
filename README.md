@@ -32,6 +32,11 @@ investments-companion/
 │   ├── chapter3_portfolio.py
 │   ├── chapter5_capm.py
 │   ├── chapter10_options.py
+│   ├── data_utils.py
+│
+│── data/
+│   ├── UBS_2022-01-01_2024-01-01.csv
+│   ├── (additional downloaded datasets)
 │
 │── notebooks/
 │   ├── 01_returns.ipynb
@@ -129,7 +134,7 @@ This section applies continuous-time pricing logic using explicit formula implem
 
 ---
 
-# Data Sources
+# Data Sources and Management
 
 Market data may be retrieved using Yahoo Finance through Python interfaces such as `yfinance`.
 
@@ -140,6 +145,40 @@ Example assets include:
 * Nestlé
 
 The purpose is to test theoretical models on real observed market prices.
+
+## Data Management System
+
+To avoid repeated downloads and improve workflow efficiency, the repository includes a data management utility (`src/data_utils.py`) with two functions:
+
+### Download and Save Data
+
+```python
+from src.data_utils import download_and_save_prices
+
+# Download data and save to CSV
+prices, csv_file = download_and_save_prices(
+    ticker='UBS',
+    start_date='2022-01-01',
+    end_date='2024-01-01',
+    data_dir='data'
+)
+```
+
+This saves historical prices to `data/UBS_2022-01-01_2024-01-01.csv` for reuse.
+
+### Load from Saved Data
+
+```python
+from src.data_utils import load_prices_from_csv
+
+# Load previously downloaded data
+prices = load_prices_from_csv('data/UBS_2022-01-01_2024-01-01.csv')
+```
+
+**Benefits:**
+* Speeds up notebook iterations (no repeated downloads)
+* Enables reproducible analysis (same data across runs)
+* Keeps data locally organized in the `data/` directory
 
 ---
 
