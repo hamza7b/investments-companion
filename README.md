@@ -23,6 +23,20 @@ All implementations are designed to remain transparent and aligned with lecture 
 
 ---
 
+# Web App
+
+The project includes an interactive Streamlit web app (`app.py`) that exposes all models through a multi-tab interface.
+
+To launch:
+
+```bash
+streamlit run app.py
+```
+
+The app has four tabs, one per chapter, with a shared sidebar for ticker, date range, and model parameters. Each tab displays computed metrics and interactive charts driven by live or cached market data.
+
+---
+
 # Repository Structure
 
 ```text
@@ -44,6 +58,7 @@ investments-companion/
 │   ├── 03_capm.ipynb
 │   ├── 04_options.ipynb
 │
+│── app.py
 │── requirements.txt
 │── README.md
 ```
@@ -221,10 +236,16 @@ Future additions may include:
 
 # Environment
 
-Recommended Python packages:
+Install all required packages:
 
 ```bash
-pip install numpy pandas matplotlib scipy yfinance
+pip install -r requirements.txt
+```
+
+Or manually:
+
+```bash
+pip install numpy pandas matplotlib scipy yfinance streamlit
 ```
 
 ---
