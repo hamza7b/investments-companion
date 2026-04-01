@@ -206,16 +206,8 @@ Financial Return    Social/Env. Impact
                            horizontal=True, key="esg_screen_type")
     threshold = st.slider("ESG threshold", 0, 100, 50, key="esg_threshold")
 
-    # Apply screen
-    passing = []
-    for name, score in zip(company_names, esg_scores):
-        passes = (score >= threshold) if "Positive" in screen_type else (score >= threshold)
-        # Negative screening: exclude below threshold means exclude if score < threshold
-        if "Negative" in screen_type:
-            passes = score >= threshold
-        else:
-            passes = score >= threshold
-        passing.append(passes)
+    # Apply screen — both types keep firms at or above the threshold
+    passing = [score >= threshold for score in esg_scores]
 
     n_passing = sum(passing)
     equal_weight = 1.0 / n_passing if n_passing > 0 else 0.0
