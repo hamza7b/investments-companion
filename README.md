@@ -1,4 +1,4 @@
-# Computational Companion to FIN-A0104
+# Computational Companion to FIN-A0104 🇫🇮
 
 An interactive Streamlit web app that translates every quantitative model from *Fundamentals of Investments (FIN-A0104)* at Aalto University into live, interactive calculators driven by real market data.
 
