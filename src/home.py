@@ -21,6 +21,37 @@ CSS = """
     color: color-mix(in srgb, var(--text-color) 55%, transparent);
     margin-bottom: 0;
 }
+.cc-step-box {
+    background: var(--secondary-background-color);
+    border-radius: 8px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+.cc-step-num {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #00d4aa;
+    background: rgba(0,212,170,0.12);
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+}
+.cc-step-text {
+    font-size: 0.9rem;
+    color: color-mix(in srgb, var(--text-color) 80%, transparent);
+    line-height: 1.5;
+}
+.cc-step-text strong {
+    color: var(--text-color);
+}
 .cc-section-label {
     font-size: 0.72rem;
     font-weight: 600;
@@ -163,48 +194,82 @@ def show():
     # ── Hero ──────────────────────────────────────────────────────────────────
     st.markdown('<div class="cc-hero-title">Computational Companion</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="cc-hero-sub">FIN-A0104 · Fundamentals of Investments · Aalto University</div>',
+        '<div class="cc-hero-sub">FIN-A0104 · Fundamentals of Investments · Aalto University School of Business</div>',
         unsafe_allow_html=True,
     )
     st.markdown("<br>", unsafe_allow_html=True)
 
-    col_a, col_b, col_c = st.columns([1.6, 1, 1])
+    # ── Introduction ──────────────────────────────────────────────────────────
+    st.markdown('<div class="cc-section-label">Introduction</div>', unsafe_allow_html=True)
 
-    with col_a:
+    col_intro, col_covers = st.columns([1.8, 1], gap="large")
+    with col_intro:
         st.markdown(
             '<div class="cc-body-text">'
             "This tool translates every quantitative model in the FIN-A0104 lecture notes into "
-            "live, interactive calculators driven by real market data. Enter a ticker, pick a date "
-            "range, and explore the formulas in action — chapter by chapter."
+            "live, interactive calculators driven by real market data from Yahoo Finance. "
+            "Enter a ticker and date range in the sidebar, then explore returns, portfolio theory, "
+            "asset pricing, fixed income, options, and more — each chapter as a standalone tab, "
+            "with full formulas and explanations alongside the results."
+            "<br><br>"
+            "Built as an independent computational extension of the course. "
+            "Not official Aalto course material."
             "</div>",
             unsafe_allow_html=True,
         )
-
-    with col_b:
+    with col_covers:
         st.markdown(
-            '<div style="background:var(--secondary-background-color);border-radius:8px;padding:14px 16px">'
-            '<div style="font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#00d4aa;margin-bottom:8px">Covers</div>'
-            '<div class="cc-body-text" style="font-size:0.88rem;line-height:1.9">'
+            '<div style="background:var(--secondary-background-color);border-radius:8px;padding:16px 18px">'
+            '<div style="font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#00d4aa;margin-bottom:10px">Covers</div>'
+            '<div class="cc-body-text" style="font-size:0.88rem;line-height:2.0">'
             "✦ Returns &amp; Risk<br>"
-            "✦ Portfolio Theory<br>"
-            "✦ CAPM &amp; Multifactor<br>"
-            "✦ Fixed Income &amp; Options"
+            "✦ Portfolio Theory &amp; Optimization<br>"
+            "✦ CAPM, Beta &amp; Multifactor Models<br>"
+            "✦ Fixed Income &amp; Duration<br>"
+            "✦ Options &amp; Black-Scholes<br>"
+            "✦ Active Management &amp; ESG"
             "</div></div>",
             unsafe_allow_html=True,
         )
 
-    with col_c:
-        st.markdown(
-            '<div style="background:var(--secondary-background-color);border-radius:8px;padding:14px 16px">'
-            '<div style="font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#58a6ff;margin-bottom:8px">How to use</div>'
-            '<div class="cc-body-text" style="font-size:0.88rem;line-height:1.9">'
-            "1. Set ticker &amp; dates in the sidebar<br>"
-            "2. Navigate tabs per chapter<br>"
-            "3. Adjust parameters live<br>"
-            "4. Read formulas in each expander"
-            "</div></div>",
-            unsafe_allow_html=True,
-        )
+    st.markdown("<hr class='cc-divider'>", unsafe_allow_html=True)
+
+    # ── How to use ────────────────────────────────────────────────────────────
+    st.markdown('<div class="cc-section-label">How to Use</div>', unsafe_allow_html=True)
+
+    steps = [
+        ("Set your data",        "Enter a primary ticker (e.g. <code>UBS</code>), a second ticker, a market index, and a date range in the <strong>sidebar</strong>."),
+        ("Pick a chapter",       "Click any <strong>tab</strong> at the top to open that chapter. Each tab is fully self-contained."),
+        ("Read the overview",    "Open the <strong>📖 Concept Overview</strong> expander to see the formulas and theory before diving into results."),
+        ("Interact with inputs", "Adjust sliders, number inputs, and dropdowns to see how outputs respond in real time."),
+        ("Interpret the output", "Every metric has a <strong>caption</strong> below it explaining what it means and how to read it."),
+    ]
+
+    col1, col2 = st.columns(2, gap="large")
+    for i, (title, body) in enumerate(steps):
+        col = col1 if i % 2 == 0 else col2
+        with col:
+            st.markdown(
+                f'<div class="cc-step-box">'
+                f'  <div class="cc-step-num">{i+1}</div>'
+                f'  <div class="cc-step-text"><strong>{title}</strong><br>{body}</div>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
+
+    # ── Credits ───────────────────────────────────────────────────────────────
+    st.markdown("<hr class='cc-divider'>", unsafe_allow_html=True)
+    st.markdown('<div class="cc-section-label">Credits</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="cc-body-text" style="font-size:0.88rem;line-height:1.9;color:color-mix(in srgb,var(--text-color) 60%,transparent)">'
+        "Based on lecture notes by <strong style='color:var(--text-color)'>Prof. Petri Jylhä</strong> · "
+        "Aalto University School of Business · FIN-A0104<br>"
+        "<span style='font-size:0.8rem;font-style:italic'>"
+        "An independent computational extension — not official course material."
+        "</span>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
 
     # ── Chapter map ───────────────────────────────────────────────────────────
     st.markdown("<hr class='cc-divider'>", unsafe_allow_html=True)

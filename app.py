@@ -22,6 +22,10 @@ st.set_page_config(
     layout="wide",
 )
 
+from src.splash import show as show_splash
+if show_splash():
+    st.stop()
+
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.title("Investment Companion")

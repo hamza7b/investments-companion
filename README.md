@@ -56,6 +56,7 @@ investments-companion/
 │
 ├── src/
 │   ├── home.py                 # Landing page and course chapter map
+│   ├── splash.py               # Full-screen splash screen on session start
 │   ├── chapter1_intro.py       # Ch 1: glossary and margin/short simulator
 │   ├── chapter2_returns.py     # Math: simple_return, log_return, expected_return, volatility + show()
 │   ├── chapter3_portfolio.py   # Math: portfolio_return, portfolio_variance, covariance_matrix + show()
@@ -97,6 +98,16 @@ with tabs[3]: show_ch3(**shared)
 ```
 
 Chapters that use market data have a `@st.cache_data` price loader at module level. Chapters that don't (Ch 7, 8, 9, 12, Appendix A) ignore the market data parameters.
+
+---
+
+## Credits
+
+- **Course:** FIN-A0104 · Fundamentals of Investments, Aalto University
+- **Lecture Notes:** Prof. Petri Jylhä
+- **App:** An independent computational extension — not official course material
+- **Data Source:** Yahoo Finance via yfinance
+- **Framework:** Streamlit
 
 ---
 
