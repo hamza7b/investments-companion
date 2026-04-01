@@ -74,7 +74,7 @@ def _load(ticker, start, end):
         return None
 
 
-def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r):
+def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r, **kwargs):
     st.header("Chapter 3 — Two-Asset Portfolio")
     st.caption("Portfolio expected return, variance, covariance, and diversification effect.")
 

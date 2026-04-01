@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r):
+def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r, **kwargs):
     st.header("Appendix A — Time Value of Money")
     st.caption("Present value, future value, annuities, perpetuities, and the timeline visualiser.")
 

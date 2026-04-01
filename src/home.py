@@ -15,11 +15,13 @@ CSS = """
     letter-spacing: -0.5px;
     color: var(--text-color);
     margin-bottom: 0.1rem;
+    text-align: center;
 }
 .cc-hero-sub {
     font-size: 1.05rem;
     color: color-mix(in srgb, var(--text-color) 55%, transparent);
     margin-bottom: 0;
+    text-align: center;
 }
 .cc-step-box {
     background: var(--secondary-background-color);
@@ -202,35 +204,21 @@ def show():
     # ── Introduction ──────────────────────────────────────────────────────────
     st.markdown('<div class="cc-section-label">Introduction</div>', unsafe_allow_html=True)
 
-    col_intro, col_covers = st.columns([1.8, 1], gap="large")
-    with col_intro:
-        st.markdown(
-            '<div class="cc-body-text">'
-            "This tool translates every quantitative model in the FIN-A0104 lecture notes into "
-            "live, interactive calculators driven by real market data from Yahoo Finance. "
-            "Enter a ticker and date range in the sidebar, then explore returns, portfolio theory, "
-            "asset pricing, fixed income, options, and more — each chapter as a standalone tab, "
-            "with full formulas and explanations alongside the results."
-            "<br><br>"
-            "Built as an independent computational extension of the course. "
-            "Not official Aalto course material."
-            "</div>",
-            unsafe_allow_html=True,
-        )
-    with col_covers:
-        st.markdown(
-            '<div style="background:var(--secondary-background-color);border-radius:8px;padding:16px 18px">'
-            '<div style="font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#00d4aa;margin-bottom:10px">Covers</div>'
-            '<div class="cc-body-text" style="font-size:0.88rem;line-height:2.0">'
-            "✦ Returns &amp; Risk<br>"
-            "✦ Portfolio Theory &amp; Optimization<br>"
-            "✦ CAPM, Beta &amp; Multifactor Models<br>"
-            "✦ Fixed Income &amp; Duration<br>"
-            "✦ Options &amp; Black-Scholes<br>"
-            "✦ Active Management &amp; ESG"
-            "</div></div>",
-            unsafe_allow_html=True,
-        )
+    st.markdown(
+        '<div class="cc-body-text">'
+        "This tool translates every quantitative model in the FIN-A0104 lecture notes into "
+        "live, interactive calculators driven by real market data from Yahoo Finance. "
+        "Enter a ticker and date range in the sidebar, then explore returns, portfolio theory, "
+        "asset pricing, fixed income, options, and more — each chapter as a standalone tab, "
+        "with full formulas and explanations alongside the results."
+        "<br><br>"
+        "Whether you're a student looking to deepen your understanding, or just curious about how "
+        "the numbers behind the theories actually work, this companion is here to help you experiment, "
+        "visualize, and truly grasp the quantitative side of investments."
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
 
     st.markdown("<hr class='cc-divider'>", unsafe_allow_html=True)
 
@@ -281,17 +269,18 @@ def show():
         unsafe_allow_html=True,
     )
 
-    left_parts  = PARTS[:3]  # Fundamentals, Portfolio Theory, Asset Pricing
-    right_parts = PARTS[3:]  # Applications, Appendices
+    col_a, col_b, col_c = st.columns(3, gap="large")
 
-    col_left, col_right = st.columns(2, gap="large")
+    # Col A: Fundamentals (3 chapters) + Applications (2 chapters)
+    # Col B: Portfolio Theory (3 chapters) + Appendices (2 chapters)
+    # Col C: Asset Pricing (4 chapters)
+    col_assignments = [col_a, col_b, col_c, col_a, col_b]
 
-    for col, parts in ((col_left, left_parts), (col_right, right_parts)):
+    for part, col in zip(PARTS, col_assignments):
+        colour = PART_COLOURS[part["key"]]
+        html = _part_header(part["label"], colour)
+        for num, title, desc in part["chapters"]:
+            html += _chapter_card(num, title, desc, colour)
+        html += "<br>"
         with col:
-            for part in parts:
-                colour = PART_COLOURS[part["key"]]
-                html = _part_header(part["label"], colour)
-                for num, title, desc in part["chapters"]:
-                    html += _chapter_card(num, title, desc, colour)
-                html += "<br>"
-                st.markdown(html, unsafe_allow_html=True)
+            st.markdown(html, unsafe_allow_html=True)

@@ -38,8 +38,11 @@ with st.sidebar:
     end_date = st.date_input("End date", value=date(2024, 1, 1))
 
     st.divider()
-    st.subheader("Second Asset")
+    st.subheader("Portfolio / Optimization")
     ticker2 = st.text_input("Second ticker", value="NESN.SW")
+    ticker3 = st.text_input("Third ticker", value="NOVN.SW")
+    ticker4 = st.text_input("Fourth ticker (optional)", value="")
+    ticker5 = st.text_input("Fifth ticker (optional)", value="")
 
     st.divider()
     st.subheader("Market / CAPM")
@@ -58,6 +61,9 @@ with st.sidebar:
 shared = dict(
     ticker=ticker,
     ticker2=ticker2,
+    ticker3=ticker3,
+    ticker4=ticker4,
+    ticker5=ticker5,
     market_ticker=market_ticker,
     start_date=start_date,
     end_date=end_date,

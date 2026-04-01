@@ -11,7 +11,7 @@ def _load(ticker, start, end):
         return None
 
 
-def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r):
+def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r, **kwargs):
     import numpy as np
     import matplotlib.pyplot as plt
     import streamlit as st

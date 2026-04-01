@@ -90,7 +90,7 @@ def _load(ticker, start, end):
         return None
 
 
-def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r):
+def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r, **kwargs):
     from src.chapter2_returns import simple_return, volatility
 
     st.header("Chapter 10 — Black-Scholes Option Pricing")

@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 
-def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r):
+def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r, **kwargs):
     st.header("Chapter 9 — Security Analysis")
     st.caption("Fundamental valuation: DuPont analysis, DDM, WACC/FCF, and comparables.")
 

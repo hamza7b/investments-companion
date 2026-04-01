@@ -153,4 +153,4 @@ pip install numpy pandas matplotlib scipy yfinance streamlit
 
 ## Author Note
 
-Developed as an independent computational companion to FIN-A0104 by Hamza Bichiou to deepen understanding of quantitative finance through implementation, assisted with AI. 
+Developed by Hamza Bichiou, exchange student at Aalto University from EPFL (2025–2026), as an independent computational companion to FIN-A0104. Built to deepen understanding of quantitative finance through implementation.

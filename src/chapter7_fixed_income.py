@@ -5,7 +5,7 @@ import pandas as pd
 from scipy.optimize import brentq
 
 
-def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r):
+def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r, **kwargs):
     st.header("Chapter 7 — Fixed Income Securities")
     st.caption("Bond pricing, yield to maturity, the term structure, and forward rates.")
 

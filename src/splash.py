@@ -32,7 +32,7 @@ def show() -> bool:
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 78vh;
+        min-height: 65vh;
         text-align: center;
     }
     .splash-title {

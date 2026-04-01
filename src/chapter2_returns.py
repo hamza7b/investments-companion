@@ -84,7 +84,7 @@ def _load(ticker, start, end):
         return None
 
 
-def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r):
+def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r, **kwargs):
     st.header("Chapter 2 — Returns & Risk")
     st.caption("Simple returns, log returns, expected return, and volatility.")
 
