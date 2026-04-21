@@ -12,6 +12,8 @@ CSS = """
     padding: 3rem 1rem 2.5rem;
     border-bottom: 1px solid rgba(128, 128, 128, 0.2);
     margin-bottom: 0;
+    width: 100%; 
+    max-width: 100%;
 }
 .cc-hero-icon {
     width: 64px; height: 64px;
@@ -34,7 +36,7 @@ CSS = """
 .cc-hero-desc {
     font-size: 0.95rem;
     color: color-mix(in srgb, var(--text-color) 70%, transparent);
-    max-width: 600px;
+    max-width: 1000px;
     margin: 0 auto;
     line-height: 1.75;
 }
