@@ -1,6 +1,6 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from datetime import date
-
 from src.home import show as show_home
 from src.chapter1_intro import show as show_ch1
 from src.chapter2_returns import show as show_ch2
@@ -26,38 +26,36 @@ from src.splash import show as show_splash
 if show_splash():
     st.stop()
 
+# ── Session state init ────────────────────────────────────────────────────────
+if "active_tab" not in st.session_state:
+    st.session_state["active_tab"] = 0
+
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.title("Investment Companion")
     st.caption("Computational companion to FIN-A0104 · Aalto University")
     st.divider()
-
     st.subheader("Primary Asset")
     ticker = st.text_input("Ticker", value="UBS")
     start_date = st.date_input("Start date", value=date(2022, 1, 1))
     end_date = st.date_input("End date", value=date(2024, 1, 1))
-
     st.divider()
     st.subheader("Portfolio / Optimization")
     ticker2 = st.text_input("Second ticker", value="NESN.SW")
     ticker3 = st.text_input("Third ticker", value="NOVN.SW")
     ticker4 = st.text_input("Fourth ticker (optional)", value="")
     ticker5 = st.text_input("Fifth ticker (optional)", value="")
-
     st.divider()
     st.subheader("Market / CAPM")
     market_ticker = st.text_input("Market index", value="^SSMI")
     risk_free_rate = st.number_input("Risk-free rate (%)", value=1.5, step=0.1) / 100
-
     st.divider()
     st.subheader("Options")
     option_T = st.number_input("Time to expiry (years)", value=0.5, step=0.1, min_value=0.01)
     option_r = st.number_input("Risk-free rate, % (options)", value=1.5, step=0.1) / 100
-
     st.divider()
     st.caption("Data sourced from Yahoo Finance via yfinance.")
 
-# Shared parameters passed to every chapter show()
 shared = dict(
     ticker=ticker,
     ticker2=ticker2,
@@ -90,6 +88,18 @@ tabs = st.tabs([
     "Appendix A — TVM",
 ])
 
+# ── Tab auto-navigation ───────────────────────────────────────────────────────
+active = st.session_state.get("active_tab", 0)
+if active > 0:
+    components.html(
+        f'<script>setTimeout(function(){{'
+        f'window.parent.document.querySelectorAll("[data-baseweb=tab]")[{active}].click();'
+        f'}}, 100);</script>',
+        height=0,
+    )
+    st.session_state["active_tab"] = 0
+
+# ── Tab content ───────────────────────────────────────────────────────────────
 with tabs[0]:  show_home()
 with tabs[1]:  show_ch1()
 with tabs[2]:  show_ch2(**shared)
