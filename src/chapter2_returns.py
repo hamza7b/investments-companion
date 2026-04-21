@@ -113,7 +113,7 @@ def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, o
     prices = _load(ticker, start_date, end_date)
 
     if prices is None or len(prices) < 2:
-        st.error(f"Could not load data for **{ticker}**. Check the ticker and date range.")
+        st.error(f"Could not load data for **{ticker}**. Try adjusting the **start or end date** in the sidebar — this usually fixes the issue after a period of inactivity.")
         st.stop()
 
     ret_simple = simple_return(prices)

@@ -91,10 +91,10 @@ def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, o
     p_market = _load(market_ticker, start_date, end_date)
 
     if p_asset is None or len(p_asset) < 2:
-        st.error(f"Could not load data for **{ticker}**.")
+        st.error(f"Could not load data for **{ticker}**. Try adjusting the **start or end date** in the sidebar — this usually fixes the issue after a period of inactivity.")
         st.stop()
     if p_market is None or len(p_market) < 2:
-        st.error(f"Could not load data for market index **{market_ticker}**.")
+        st.error(f"Could not load data for market index **{market_ticker}**. Try adjusting the **start or end date** in the sidebar — this usually fixes the issue after a period of inactivity.")
         st.stop()
 
     n = min(len(p_asset), len(p_market))

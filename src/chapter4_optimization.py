@@ -75,7 +75,7 @@ def show(ticker, ticker2, market_ticker, start_date, end_date,
             price_series[t] = p
 
     if len(price_series) < 2:
-        st.error("Could not load data for at least 2 tickers. Check your tickers and date range.")
+        st.error("Could not load data for at least 2 tickers. Try adjusting the **start or end date** in the sidebar — this usually fixes the issue after a period of inactivity.")
         st.stop()
 
     loaded_tickers = list(price_series.keys())
