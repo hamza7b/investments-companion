@@ -20,11 +20,8 @@ from src.data_utils import download_and_save_prices
 
 @st.cache_data
 def _load(ticker, start, end):
-    try:
-        prices, _ = download_and_save_prices(ticker, str(start), str(end), data_dir="data")
-        return prices
-    except Exception:
-        return None
+    prices, _ = download_and_save_prices(ticker, str(start), str(end), data_dir="data")
+    return prices
 
 
 def show(ticker, ticker2, market_ticker, start_date, end_date,
@@ -70,7 +67,10 @@ def show(ticker, ticker2, market_ticker, start_date, end_date,
     # ── 2. Load and align prices ──────────────────────────────────────────────
     price_series = {}
     for t in tickers:
-        p = _load(t, start_date, end_date)
+        try:
+            p = _load(t, start_date, end_date)
+        except Exception:
+            p = None
         if p is not None and len(p) >= 30:
             price_series[t] = p
 

@@ -55,11 +55,8 @@ def capm_expected_return(risk_free_rate, asset_beta, market_return):
 
 @st.cache_data
 def _load(ticker, start, end):
-    try:
-        prices, _ = download_and_save_prices(ticker, str(start), str(end), data_dir="data")
-        return prices
-    except Exception:
-        return None
+    prices, _ = download_and_save_prices(ticker, str(start), str(end), data_dir="data")
+    return prices
 
 
 def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r, **kwargs):
@@ -87,8 +84,14 @@ def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, o
         The **Security Market Line (SML)** plots CAPM expected return vs beta. Points above = undervalued; below = overvalued.
         """)
 
-    p_asset = _load(ticker, start_date, end_date)
-    p_market = _load(market_ticker, start_date, end_date)
+    try:
+        p_asset = _load(ticker, start_date, end_date)
+    except Exception:
+        p_asset = None
+    try:
+        p_market = _load(market_ticker, start_date, end_date)
+    except Exception:
+        p_market = None
 
     if p_asset is None or len(p_asset) < 2:
         st.error(f"Could not load data for **{ticker}**. Try adjusting the **start or end date** in the sidebar — this usually fixes the issue after a period of inactivity.")

@@ -83,11 +83,8 @@ def black_scholes_put(S, K, T, r, sigma):
 
 @st.cache_data
 def _load(ticker, start, end):
-    try:
-        prices, _ = download_and_save_prices(ticker, str(start), str(end), data_dir="data")
-        return prices
-    except Exception:
-        return None
+    prices, _ = download_and_save_prices(ticker, str(start), str(end), data_dir="data")
+    return prices
 
 
 def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, option_T, option_r, **kwargs):
@@ -112,7 +109,10 @@ def show(ticker, ticker2, market_ticker, start_date, end_date, risk_free_rate, o
         **Vega:** Both calls and puts increase in value when volatility rises.
         """)
 
-    prices_opt = _load(ticker, start_date, end_date)
+    try:
+        prices_opt = _load(ticker, start_date, end_date)
+    except Exception:
+        prices_opt = None
 
     if prices_opt is None or len(prices_opt) < 2:
         st.error(f"Could not load data for **{ticker}**. Try adjusting the **start or end date** in the sidebar — this usually fixes the issue after a period of inactivity.")
