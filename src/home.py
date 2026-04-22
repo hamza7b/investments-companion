@@ -400,7 +400,7 @@ def show():
     st.markdown(
         '<div class="cc-footer">'
         "Based on lecture notes by <strong>Prof. Petri Jylhä</strong> · "
-        "Aalto University School of Business · FIN-A0104<br>"
+        "Aalto University · FIN-A0104 · Autumn 2025<br>"
         "<em>An independent computational extension — not official course material.</em>"
         '</div>',
         unsafe_allow_html=True,
