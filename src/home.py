@@ -10,9 +10,8 @@ CSS = """
 .cc-hero-wrap {
     text-align: center;
     padding: 3rem 1rem 2.5rem;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
     margin-bottom: 0;
-    width: 100%; 
+    width: 100%;
     max-width: 100%;
 }
 .cc-hero-icon {
@@ -178,6 +177,14 @@ CSS = """
     font-size: 0.78rem;
 }
 
+/* Remove Streamlit default bottom padding */
+.main .block-container {
+    padding-bottom: 0 !important;
+}
+section[data-testid="stMain"] > div {
+    padding-bottom: 0 !important;
+}
+
 /* Light mode specific adjustments */
 @media (prefers-color-scheme: light) {
     [data-testid="column"] > div {
@@ -280,7 +287,7 @@ def show():
         '<div class="cc-hero-wrap">'
         '  <div class="cc-hero-icon">🏦</div>'
         '  <div class="cc-hero-title">Computational Companion</div>'
-        '  <div class="cc-hero-sub">FIN-A0104 · Fundamentals of Investments · Aalto University School of Business</div>'
+        '  <div class="cc-hero-sub">FIN-A0104 · Fundamentals of Investments · Aalto University </div>'
         '  <div class="cc-hero-desc">'
         "    This tool translates every quantitative model in the FIN-A0104 lecture notes into "
         "    live, interactive calculators driven by real market data from Yahoo Finance. "
@@ -291,6 +298,21 @@ def show():
         '</div>',
         unsafe_allow_html=True,
     )
+
+    with open("assets/Lecture_notes_FIN.pdf", "rb") as f:
+        pdf_bytes = f.read()
+
+    _, btn_col, _ = st.columns([2, 1, 2])
+    with btn_col:
+        st.download_button(
+            label="📄 Download Lecture Notes",
+            data=pdf_bytes,
+            file_name="lecture_notes.pdf",
+            mime="application/pdf",
+            use_container_width=True,
+        )
+
+    st.markdown('<hr style="border:none; border-top:1px solid rgba(128,128,128,0.2); margin: 1.5rem 0 0;">', unsafe_allow_html=True)
 
     # ── How to Use ────────────────────────────────────────────────────────────
     st.markdown('<div style="height: 1rem;"></div>', unsafe_allow_html=True)
@@ -363,7 +385,7 @@ def show():
                         st.session_state["active_tab"] = tab_index
                         st.rerun()
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    #st.markdown('</div>', unsafe_allow_html=True)
 
     # ── Credits ───────────────────────────────────────────────────────────────
     st.markdown("<hr class='cc-divider'>", unsafe_allow_html=True)
