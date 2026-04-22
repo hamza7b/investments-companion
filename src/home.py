@@ -177,6 +177,14 @@ CSS = """
     font-size: 0.78rem;
 }
 
+/* Remove space above footer divider */
+hr.cc-divider {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0 !important;
+    border: none;
+    border-top: 1px solid rgba(128, 128, 128, 0.2);
+}
+
 /* Remove Streamlit default bottom padding */
 .main .block-container {
     padding-bottom: 0 !important;
